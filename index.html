@@ -1,0 +1,803 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fff3eb">
+  <meta name="description" content="Pastel Gourmet — doces variados, crocantes por fora e irresistíveis por dentro.">
+  <title>Pastel Gourmet — Doces variados</title>
+  <style>
+    :root {
+      --cream: #fff3eb;
+      --paper: #fffaf6;
+      --rose: #e9788b;
+      --rose-deep: #d95f77;
+      --rose-soft: #f8d9d8;
+      --cocoa: #49291d;
+      --cocoa-light: #765544;
+      --gold: #c68a36;
+      --line: rgba(73, 41, 29, .13);
+      --shadow: 0 24px 70px rgba(91, 45, 36, .12);
+      --serif: Georgia, "Times New Roman", serif;
+      --sans: "Trebuchet MS", Arial, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; color: var(--cocoa); background: var(--cream); font-family: var(--sans); }
+    a { color: inherit; text-decoration: none; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    .wrap { width: min(1160px, calc(100% - 44px)); margin-inline: auto; }
+    .topbar { position: sticky; top: 0; z-index: 10; background: rgba(255, 243, 235, .9); backdrop-filter: blur(14px); border-bottom: 1px solid rgba(73,41,29,.08); }
+    .nav { min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .wordmark { display: flex; align-items: baseline; gap: 8px; white-space: nowrap; }
+    .wordmark strong { font: 700 22px var(--serif); letter-spacing: .12em; }
+    .wordmark em { color: var(--rose); font: italic 27px cursive; }
+    .navlinks { display: flex; align-items: center; gap: 32px; color: var(--cocoa-light); font-size: 13px; }
+    .navlinks a:hover { color: var(--rose-deep); }
+    .nav-cta { padding: 12px 19px; border-radius: 999px; background: var(--cocoa); color: white; font-size: 13px; font-weight: 700; transition: transform .2s, background .2s; }
+    .nav-cta:hover { transform: translateY(-2px); background: var(--rose-deep); }
+    .hero { position: relative; overflow: hidden; padding: 68px 0 80px; }
+    .hero::before, .hero::after { content: ""; position: absolute; border-radius: 50%; pointer-events: none; }
+    .hero::before { width: 500px; height: 500px; right: -185px; top: -240px; background: rgba(248,217,216,.54); }
+    .hero::after { width: 280px; height: 280px; left: -170px; bottom: -170px; border: 1px solid rgba(198,138,54,.34); }
+    .hero-grid { position: relative; z-index: 1; display: grid; grid-template-columns: 1.02fr .98fr; align-items: center; gap: 64px; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 10px; color: var(--rose-deep); font-size: 11px; font-weight: 800; letter-spacing: .18em; text-transform: uppercase; }
+    .eyebrow::before { content: ""; width: 26px; height: 1px; background: var(--gold); }
+    h1, h2, h3, p { margin-top: 0; }
+    h1 { margin: 21px 0 18px; max-width: 610px; font: 500 clamp(48px, 6vw, 78px)/.98 var(--serif); letter-spacing: -.045em; }
+    h1 span { color: var(--rose); font-style: italic; }
+    .hero-copy { max-width: 490px; color: var(--cocoa-light); font-size: 16px; line-height: 1.8; }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+    .button { display: inline-flex; align-items: center; justify-content: center; min-height: 50px; padding: 0 23px; border: 1px solid var(--cocoa); border-radius: 999px; font-size: 13px; font-weight: 800; transition: transform .2s, box-shadow .2s, background .2s; }
+    .button:hover { transform: translateY(-2px); box-shadow: 0 9px 22px rgba(73,41,29,.12); }
+    .button.primary { background: var(--cocoa); color: white; }
+    .button.secondary { background: transparent; }
+    .hero-note { display: flex; align-items: center; gap: 10px; margin-top: 27px; color: var(--cocoa-light); font-size: 12px; }
+    .hero-note b { color: var(--gold); font-size: 18px; }
+    .logo-stage { position: relative; display: grid; place-items: center; min-height: 480px; }
+    .logo-halo { position: absolute; width: min(430px, 90%); aspect-ratio: 1; border: 1px solid rgba(217,95,119,.4); border-radius: 50%; }
+    .logo-halo::before { content: ""; position: absolute; inset: 18px; border: 1px solid rgba(198,138,54,.52); border-radius: 50%; }
+    .logo-card { position: relative; width: min(405px, 88%); padding: 10px; border: 1px solid rgba(73,41,29,.16); border-radius: 50%; background: var(--paper); box-shadow: var(--shadow); transform: rotate(2deg); }
+    .logo-card img { display: block; width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 50%; }
+    .float-tag { position: absolute; right: 0; bottom: 39px; padding: 14px 18px; border: 1px solid rgba(73,41,29,.1); border-radius: 18px; background: var(--paper); box-shadow: 0 12px 30px rgba(91,45,36,.1); color: var(--cocoa-light); font: italic 15px var(--serif); transform: rotate(-5deg); }
+    .float-tag strong { display: block; color: var(--rose-deep); font: 800 11px var(--sans); letter-spacing: .12em; text-transform: uppercase; }
+    .heart { position: absolute; top: 52px; right: 50px; color: var(--rose); font-size: 38px; transform: rotate(12deg); }
+    .strip { background: var(--cocoa); color: var(--cream); }
+    .strip-inner { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 27px; min-height: 75px; text-align: center; font: italic 17px var(--serif); }
+    .strip span { color: #f39ba6; font: 12px var(--sans); }
+    section { scroll-margin-top: 90px; }
+    .section { padding: 100px 0; }
+    .section-head { max-width: 650px; margin: 0 auto 44px; text-align: center; }
+    .section-head .eyebrow { justify-content: center; }
+    h2 { margin: 15px 0 14px; font: 500 clamp(36px, 4vw, 52px)/1.08 var(--serif); letter-spacing: -.035em; }
+    .section-head p { margin-bottom: 0; color: var(--cocoa-light); font-size: 15px; line-height: 1.7; }
+    .flavors { background: var(--paper); }
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .menu-group { margin-top: 42px; }
+    .menu-title { display: flex; align-items: center; gap: 12px; margin: 0 0 18px; font: 500 27px var(--serif); }
+    .menu-title::after { content: ""; height: 1px; flex: 1; background: var(--line); }
+    .cards.menu-cards { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .menu-cards .card { min-height: 158px; padding: 20px; }
+    .menu-cards .card-icon { width: 42px; height: 42px; margin-bottom: 17px; border-radius: 14px; font-size: 20px; }
+    .menu-cards .card h3 { margin: 0; font-size: 19px; }
+    .menu-cards .card p { margin-top: 8px; font-size: 12px; }
+    .price-tag { display: inline-flex; align-items: center; margin-top: 12px; padding: 6px 10px; border-radius: 999px; background: #f9e4df; color: var(--cocoa); font-size: 12px; font-weight: 800; }
+    .price-tag.premium { background: var(--cocoa); color: #fff3eb; }
+    .pepper-note { display: inline-flex; align-items: center; gap: 10px; padding: 13px 18px; border: 1px solid rgba(198,138,54,.35); border-radius: 999px; background: #fff9ef; color: var(--cocoa-light); font-size: 13px; }
+    .pepper-note strong { color: var(--cocoa); }
+    .admin-link { padding: 10px 14px; border: 1px solid var(--rose); border-radius: 999px; background: var(--rose-soft); color: var(--cocoa); font: 800 12px var(--sans); cursor: pointer; }
+    .admin-link:hover { border-color: var(--rose-deep); background: var(--rose); color: white; }
+    .admin-dialog { width: min(520px, calc(100% - 28px)); max-height: min(88vh, 760px); padding: 30px; border: 1px solid var(--line); border-radius: 24px; background: var(--paper); color: var(--cocoa); box-shadow: var(--shadow); }
+    .admin-dialog::backdrop { background: rgba(47, 28, 21, .58); backdrop-filter: blur(3px); }
+    .admin-dialog h2 { margin: 4px 36px 10px 0; font-size: 32px; }
+    .admin-dialog p { color: var(--cocoa-light); font-size: 13px; line-height: 1.6; }
+    .admin-close { float: right; width: 36px; height: 36px; border: 1px solid var(--line); border-radius: 50%; background: white; color: var(--cocoa); font-size: 20px; cursor: pointer; }
+    .admin-form { display: grid; gap: 14px; margin-top: 18px; }
+    .admin-form label { display: grid; gap: 7px; color: var(--cocoa-light); font-size: 12px; font-weight: 700; }
+    .admin-form input { width: 100%; min-height: 44px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 11px; background: white; color: var(--cocoa); font: 15px var(--sans); }
+    .admin-form textarea { width: 100%; min-height: 82px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 11px; background: white; color: var(--cocoa); font: 14px/1.5 var(--sans); resize: vertical; }
+    .admin-form input:focus { outline: 2px solid rgba(233,120,139,.35); border-color: var(--rose); }
+    .admin-form textarea:focus { outline: 2px solid rgba(233,120,139,.35); border-color: var(--rose); }
+    .admin-status { min-height: 20px; margin: 10px 0 0; color: var(--rose-deep); font-size: 12px; }
+    .admin-divider { height: 1px; margin: 24px 0; background: var(--line); }
+    .admin-dialog { overflow-y: auto; }
+    .admin-section { margin-top: 14px; padding: 16px; border: 1px solid var(--line); border-radius: 16px; background: white; }
+    .admin-section summary { cursor: pointer; color: var(--cocoa); font: 600 18px var(--serif); }
+    .admin-section[open] summary { margin-bottom: 12px; }
+    .admin-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .admin-grid .wide { grid-column: 1 / -1; }
+    .admin-product-row { display: grid; grid-template-columns: 1.4fr .9fr .65fr .75fr auto; align-items: end; gap: 8px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+    .admin-product-row label { display: grid; gap: 5px; color: var(--cocoa-light); font-size: 11px; }
+    .admin-product-row input, .admin-product-row select { width: 100%; min-width: 0; min-height: 39px; padding: 7px 8px; border: 1px solid var(--line); border-radius: 9px; background: white; color: var(--cocoa); font: 13px var(--sans); }
+    .admin-product-row button { min-height: 39px; padding: 0 10px; border: 1px solid #e5b5b5; border-radius: 9px; background: #fff4f2; color: #a7354e; cursor: pointer; }
+    .color-field input { min-height: 48px; padding: 4px; }
+    .admin-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+    .admin-actions .button { min-height: 42px; }
+    .contact-details { margin-top: 13px !important; white-space: pre-line; }
+    .order-button { margin-top: 12px; padding: 9px 13px; border: 1px solid var(--cocoa); border-radius: 999px; background: var(--cocoa); color: white; font: 700 11px var(--sans); cursor: pointer; }
+    .order-button:hover { background: var(--rose-deep); border-color: var(--rose-deep); }
+    .pepper-note .order-button { margin: 0 0 0 8px; padding: 7px 10px; }
+    .floating-cart { position: fixed; right: 22px; bottom: 22px; z-index: 9; padding: 14px 20px; border: 0; border-radius: 999px; background: var(--rose-deep); color: white; box-shadow: 0 10px 28px rgba(73,41,29,.22); font: 800 13px var(--sans); cursor: pointer; }
+    .cart-row { display: grid; grid-template-columns: 1fr auto auto; align-items: center; gap: 10px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+    .cart-row strong { display: block; font: 500 17px var(--serif); }
+    .cart-row small { color: var(--cocoa-light); }
+    .quantity-controls { display: flex; align-items: center; gap: 7px; }
+    .quantity-controls button { width: 30px; height: 30px; border: 1px solid var(--line); border-radius: 50%; background: white; color: var(--cocoa); font-weight: 800; cursor: pointer; }
+    .order-fields { display: grid; gap: 12px; margin-top: 20px; }
+    .order-fields label { display: grid; gap: 6px; color: var(--cocoa-light); font-size: 12px; font-weight: 700; }
+    .order-fields input, .order-fields textarea { width: 100%; padding: 11px 12px; border: 1px solid var(--line); border-radius: 11px; background: white; color: var(--cocoa); font: 14px var(--sans); }
+    .order-total { display: flex; justify-content: space-between; margin: 18px 0 8px; font-weight: 800; }
+    .order-status { min-height: 22px; margin-top: 12px; color: var(--rose-deep); font-size: 12px; line-height: 1.5; }
+    .admin-order { margin-top: 12px; padding: 14px; border: 1px solid var(--line); border-radius: 13px; background: white; }
+    .admin-order h3 { margin: 0 0 6px; font: 500 19px var(--serif); }
+    .admin-order p { margin: 5px 0; color: var(--cocoa-light); font-size: 12px; white-space: pre-line; }
+    .admin-order select { min-height: 36px; padding: 6px 10px; border: 1px solid var(--line); border-radius: 9px; background: white; color: var(--cocoa); }
+    .card { position: relative; min-height: 255px; padding: 28px; overflow: hidden; border: 1px solid var(--line); border-radius: 22px; background: white; transition: transform .25s, box-shadow .25s; }
+    .card:hover { transform: translateY(-6px); box-shadow: 0 18px 42px rgba(73,41,29,.1); }
+    .card:nth-child(2) { background: #fff4f2; }
+    .card:nth-child(3) { background: #fff9ef; }
+    .card-icon { display: grid; place-items: center; width: 54px; height: 54px; margin-bottom: 28px; border-radius: 18px; background: var(--rose-soft); font-size: 25px; }
+    .card:nth-child(2) .card-icon { background: #f1dfd4; }
+    .card:nth-child(3) .card-icon { background: #f5e7cb; }
+    .card h3 { margin-bottom: 9px; font: 500 24px var(--serif); }
+    .card p { max-width: 290px; margin-bottom: 0; color: var(--cocoa-light); font-size: 13px; line-height: 1.7; }
+    .card-num { position: absolute; top: 25px; right: 25px; color: rgba(73,41,29,.2); font: italic 20px var(--serif); }
+    .story { display: grid; grid-template-columns: .9fr 1.1fr; align-items: center; gap: 80px; }
+    .story-mark { position: relative; display: grid; place-items: center; min-height: 350px; border-radius: 48% 52% 55% 45% / 48% 45% 55% 52%; background: var(--rose-soft); }
+    .story-mark::before { content: ""; position: absolute; inset: 18px; border: 1px solid rgba(73,41,29,.3); border-radius: inherit; }
+    .story-mark span { position: relative; color: var(--cocoa); text-align: center; font: italic 38px/1.15 var(--serif); }
+    .story-mark b { display: block; margin-top: 9px; color: var(--rose-deep); font: 800 10px var(--sans); letter-spacing: .24em; text-transform: uppercase; }
+    .story-copy h2 { max-width: 510px; }
+    .story-copy p { color: var(--cocoa-light); font-size: 15px; line-height: 1.85; }
+    .story-copy .button { margin-top: 9px; }
+    .contact { padding: 0 0 96px; }
+    .contact-panel { position: relative; display: flex; align-items: center; justify-content: space-between; gap: 32px; padding: 46px 52px; overflow: hidden; border-radius: 28px; background: var(--cocoa); color: var(--cream); }
+    .contact-panel::after { content: "♡"; position: absolute; right: 27%; top: -72px; color: rgba(233,120,139,.25); font: 220px var(--serif); }
+    .contact-panel > * { position: relative; z-index: 1; }
+    .contact-panel h2 { max-width: 510px; margin: 10px 0; font-size: clamp(34px, 4vw, 49px); }
+    .contact-panel p { max-width: 460px; margin-bottom: 0; color: rgba(255,243,235,.75); font-size: 14px; line-height: 1.7; }
+    .contact-panel .button { flex: 0 0 auto; border-color: var(--rose); background: var(--rose); color: white; }
+    footer { border-top: 1px solid var(--line); }
+    .footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 20px; min-height: 82px; color: var(--cocoa-light); font-size: 12px; }
+    .footer-inner strong { color: var(--cocoa); font: 700 14px var(--serif); letter-spacing: .1em; }
+    .footer-inner span:last-child { color: var(--rose-deep); }
+    @media (max-width: 820px) {
+      .navlinks { gap: 17px; }
+      .hero-grid { gap: 24px; }
+      .logo-stage { min-height: 400px; }
+      .cards { grid-template-columns: 1fr 1fr; }
+      .cards.menu-cards { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .story { gap: 42px; }
+      .story-mark { min-height: 290px; }
+    }
+    @media (max-width: 620px) {
+      .wrap { width: min(100% - 32px, 480px); }
+      .nav { min-height: 66px; }
+      .navlinks { display: none; }
+      .nav-cta { display: none; }
+      .nav-cta { padding: 10px 15px; font-size: 12px; }
+      .admin-link { padding: 8px 10px; font-size: 11px; }
+      .admin-product-row { grid-template-columns: 1fr 1fr; }
+      .admin-product-row label:first-child { grid-column: 1 / -1; }
+      .admin-product-row button { grid-column: 2; }
+      .hero { padding: 48px 0 55px; }
+      .hero-grid { grid-template-columns: 1fr; }
+      h1 { font-size: clamp(47px, 15vw, 68px); }
+      .hero-copy { font-size: 14px; }
+      .logo-stage { min-height: 350px; margin-top: 8px; }
+      .logo-card { width: min(310px, 79%); }
+      .float-tag { right: 2%; bottom: 16px; }
+      .heart { top: 25px; right: 11%; }
+      .strip-inner { gap: 12px; min-height: 66px; font-size: 15px; }
+      .section { padding: 74px 0; }
+      .section-head { margin-bottom: 30px; }
+      .cards { grid-template-columns: 1fr; }
+      .cards.menu-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+      .menu-cards .card { min-height: 142px; padding: 16px; }
+      .menu-cards .card h3 { font-size: 16px; }
+      .menu-title { font-size: 24px; }
+      .card { min-height: 220px; }
+      .story { grid-template-columns: 1fr; gap: 34px; }
+      .story-mark { min-height: 250px; }
+      .contact { padding-bottom: 70px; }
+      .contact-panel { align-items: flex-start; flex-direction: column; padding: 34px 26px; }
+      .contact-panel::after { right: 0; top: -50px; font-size: 170px; }
+      .floating-cart { right: 14px; bottom: 14px; }
+      .footer-inner { flex-wrap: wrap; justify-content: center; padding: 20px 0; text-align: center; }
+      .footer-inner > * { width: 100%; }
+    }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { transition-duration: .01ms !important; } }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <nav class="nav wrap" aria-label="Navegação principal">
+      <a class="wordmark" href="#inicio" aria-label="Pastel Gourmet, início"><strong id="brandPrimary">PASTEL</strong><em id="brandSecondary">Gourmet</em></a>
+      <div class="navlinks">
+        <a href="#sabores">Sabores</a>
+        <a href="#sobre">Nossa essência</a>
+        <a href="#pedido">Pedidos</a>
+      </div>
+      <button class="admin-link" id="openAdmin" type="button" aria-label="Abrir Menu Admin">Menu Admin</button>
+      <a class="nav-cta" href="#pedido"><span id="navContactLabel">Fale com a gente</span> <span aria-hidden="true">↗</span></a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="inicio">
+      <div class="hero-grid wrap">
+        <div>
+          <span class="eyebrow" id="heroEyebrow">Doces variados · feitos com carinho</span>
+          <h1><span id="heroTitle">Um momento doce,</span> <span id="heroHighlight">do seu jeito.</span></h1>
+          <p class="hero-copy" id="heroDescription">Massa douradinha, recheio generoso e aquele toque especial que transforma uma pausa simples em uma lembrança deliciosa.</p>
+          <div class="actions">
+            <a class="button primary" id="heroPrimaryLink" href="#sabores"><span id="heroPrimaryLabel">Conheça os sabores</span> <span aria-hidden="true">↓</span></a>
+            <a class="button secondary" href="#sobre" id="heroSecondaryLabel">Nossa essência</a>
+          </div>
+          <div class="hero-note"><b aria-hidden="true">♡</b><span id="heroTagline">Crocante por fora, irresistível por dentro.</span></div>
+        </div>
+        <div class="logo-stage" aria-label="Logo Pastel Gourmet">
+          <div class="logo-halo" aria-hidden="true"></div>
+          <span class="heart" aria-hidden="true">♡</span>
+          <figure class="logo-card"><img id="heroLogo" src="assets/pastel-gourmet-logo.jpeg" alt="Logo Pastel Gourmet Doces Variados, com pastel de chocolate e morango"></figure>
+          <div class="float-tag"><strong>Feito para encantar</strong>um pedacinho de felicidade</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="strip" aria-label="Características">
+      <div class="strip-inner wrap"><span>✦</span><span id="stripOne">Feito com carinho</span><span>✦</span><span id="stripTwo">Recheio generoso</span><span>✦</span><span id="stripThree">Sabor que abraça</span><span>✦</span></div>
+    </div>
+
+    <section class="section flavors" id="sabores">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow" id="menuEyebrow">Uma pausa mais gostosa</span>
+          <h2>Nosso <span style="color:var(--rose);font-style:italic">cardápio</span></h2>
+          <p id="menuDescription">Escolha seu pastel doce, experimente um suco refrescante e complete com geleia de pimenta.</p>
+        </div>
+        <div class="menu-group">
+          <h3 class="menu-title" id="pastelGridHeading">Pastéis doces</h3>
+          <div class="cards menu-cards" id="pastelGrid">
+            <article class="card"><div class="card-icon" aria-hidden="true">🍰</div><h3>Romeu e Julieta</h3><span class="price-tag">R$ 12,00</span></article>
+            <article class="card"><div class="card-icon" aria-hidden="true">🥛</div><h3>Doce de leite</h3><span class="price-tag">R$ 12,00</span></article>
+            <article class="card"><div class="card-icon" aria-hidden="true">🍫</div><h3>Brigadeiro</h3><span class="price-tag">R$ 12,00</span></article>
+            <article class="card"><div class="card-icon" aria-hidden="true">🍫</div><h3>Chocolate com avelã</h3><span class="price-tag">R$ 12,00</span></article>
+            <article class="card"><div class="card-icon" aria-hidden="true">🥥</div><h3>Doce de leite com coco</h3><span class="price-tag">R$ 12,00</span></article>
+            <article class="card"><div class="card-icon" aria-hidden="true">🍌</div><h3>Banana com canela Premium</h3><span class="price-tag premium">R$ 18,00 · Premium</span></article>
+            <article class="card"><div class="card-icon" aria-hidden="true">🍫</div><h3>Nutella</h3><span class="price-tag premium">R$ 18,00 · Premium</span></article>
+            <article class="card"><div class="card-icon" aria-hidden="true">🍓</div><h3>Nutella com morango</h3><span class="price-tag premium">R$ 18,00 · Premium</span></article>
+            <article class="card"><div class="card-icon" aria-hidden="true">🥥</div><h3>Prestígio</h3><span class="price-tag premium">R$ 18,00 · Premium</span></article>
+            <article class="card"><div class="card-icon" aria-hidden="true">✨</div><h3>Ninho com Nutella</h3><span class="price-tag premium">R$ 18,00 · Premium</span></article>
+          </div>
+        </div>
+        <div class="menu-group">
+          <h3 class="menu-title" id="juiceGridHeading">Sucos</h3>
+          <div class="cards menu-cards" id="juiceGrid">
+            <article class="card"><div class="card-icon" aria-hidden="true">🍋</div><h3>Limão com gengibre</h3><span class="price-tag">Consulte</span></article>
+            <article class="card"><div class="card-icon" aria-hidden="true">🍍</div><h3>Abacaxi com hortelã</h3><span class="price-tag">Consulte</span></article>
+            <article class="card"><div class="card-icon" aria-hidden="true">🥭</div><h3>Maracujá com hortelã</h3><span class="price-tag">Consulte</span></article>
+          </div>
+        </div>
+        <div class="menu-group">
+          <h3 class="menu-title" id="sideGridHeading">Acompanhamento</h3>
+          <div id="accompanimentList"><div class="pepper-note"><span aria-hidden="true">🌶️</span><strong>Geleia de pimenta</strong></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="sobre">
+      <div class="story wrap">
+        <div class="story-mark" aria-hidden="true"><span>feito com<br>amor<b>Pastel Gourmet</b></span></div>
+        <div class="story-copy">
+          <span class="eyebrow" id="storyEyebrow">Nossa essência</span>
+          <h2 id="storyTitle">Pequenos detalhes. Grandes momentos.</h2>
+          <p id="storyTextOne">A Pastel Gourmet nasceu para deixar o dia mais leve e gostoso. Cada detalhe da nossa marca — do rosa delicado ao chocolate intenso — celebra o prazer de saborear algo feito com cuidado.</p>
+          <p id="storyTextTwo">Para um mimo no meio da tarde ou para adoçar uma comemoração, queremos fazer parte dos seus momentos felizes.</p>
+          <a class="button secondary" href="#pedido"><span id="storyButtonLabel">Vamos conversar</span> <span aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact wrap" id="pedido">
+      <div class="contact-panel">
+        <div><span class="eyebrow" style="color:#f39ba6" id="contactEyebrow">Um convite especial</span><h2 id="contactTitle">Seu próximo doce favorito está esperando.</h2><p id="contactDescription">Quer saber sobre sabores, disponibilidade ou encomendas? Confira as sugestões e escolha sua combinação.</p><p class="contact-details" id="contactDetails"></p></div>
+        <a class="button" id="contactButton" href="#sabores">Ver sabores <span aria-hidden="true">&nbsp;↗</span></a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner wrap"><strong id="footerBrand">PASTEL GOURMET</strong><span id="footerNote">Doces variados, momentos especiais.</span><a id="instagramLink" href="#" target="_blank" rel="noopener" hidden></a><span>Feito com ♡</span></div>
+  </footer>
+
+  <dialog class="admin-dialog" id="adminDialog" aria-labelledby="adminTitle">
+    <button class="admin-close" id="closeAdmin" type="button" aria-label="Fechar">×</button>
+    <section id="setupView" hidden>
+      <span class="eyebrow">Primeiro acesso</span>
+      <h2 id="adminTitle">Crie sua senha</h2>
+      <p>Defina uma senha para abrir o painel neste navegador. Use pelo menos 8 caracteres. Esta proteção é local; em um site publicado, será necessário um login no servidor para impedir alterações por terceiros.</p>
+      <form class="admin-form" id="setupForm">
+        <label>Nova senha<input id="setupPassword" type="password" autocomplete="new-password" minlength="8" required></label>
+        <label>Confirme a senha<input id="setupConfirm" type="password" autocomplete="new-password" minlength="8" required></label>
+        <button class="button primary" type="submit">Criar senha e abrir admin</button>
+      </form>
+    </section>
+    <section id="loginView" hidden>
+      <span class="eyebrow">Área administrativa</span>
+      <h2>Entre com sua senha</h2>
+      <form class="admin-form" id="loginForm">
+        <label>Senha<input id="loginPassword" type="password" autocomplete="current-password" required></label>
+        <button class="button primary" type="submit">Entrar</button>
+      </form>
+    </section>
+    <section id="panelView" hidden>
+      <span class="eyebrow">Área administrativa</span>
+      <h2 id="adminTitlePanel">Configurar o site</h2>
+      <p>Edite os textos, o cardápio, os preços, as cores e os contatos. As alterações são aplicadas nesta página.</p>
+
+      <details class="admin-section" open>
+        <summary>Marca e textos</summary>
+        <form class="admin-form admin-grid" id="contentForm">
+          <label>Nome principal<input data-content="brandPrimary" required></label>
+          <label>Complemento da marca<input data-content="brandSecondary"></label>
+          <label class="wide">Logo da loja<input id="logoUpload" type="file" accept="image/*"></label>
+          <label class="wide">Frase pequena do topo<input data-content="heroEyebrow"></label>
+          <label>Título principal<input data-content="heroTitle" required></label>
+          <label>Trecho destacado<input data-content="heroHighlight" required></label>
+          <label class="wide">Descrição principal<textarea data-content="heroDescription"></textarea></label>
+          <label class="wide">Frase curta abaixo do botão<textarea data-content="heroTagline"></textarea></label>
+          <label>Botão principal<input data-content="heroPrimaryLabel"></label>
+          <label>Botão secundário<input data-content="heroSecondaryLabel"></label>
+          <label>Frase da faixa 1<input data-content="stripOne"></label>
+          <label>Frase da faixa 2<input data-content="stripTwo"></label>
+          <label>Frase da faixa 3<input data-content="stripThree"></label>
+          <label>Frase pequena do cardápio<input data-content="menuEyebrow"></label>
+          <label>Nome da seção de pastéis<input data-content="pastelHeading"></label>
+          <label>Nome da seção de sucos<input data-content="juiceHeading"></label>
+          <label>Nome da seção de acompanhamentos<input data-content="sideHeading"></label>
+          <label class="wide">Texto de apresentação do cardápio<textarea data-content="menuDescription"></textarea></label>
+          <label class="wide">Frase pequena da seção “Nossa essência”<input data-content="storyEyebrow"></label>
+          <label class="wide">Título da seção “Nossa essência”<input data-content="storyTitle"></label>
+          <label class="wide">Texto da seção “Nossa essência”<textarea data-content="storyTextOne"></textarea></label>
+          <label class="wide">Segundo parágrafo<textarea data-content="storyTextTwo"></textarea></label>
+          <label>Botão da seção “Nossa essência”<input data-content="storyButtonLabel"></label>
+          <label>Botão do topo<input data-content="navContactLabel"></label>
+          <label>Frase pequena do contato<input data-content="contactEyebrow"></label>
+          <label class="wide">Título da chamada para pedidos<input data-content="contactTitle"></label>
+          <label class="wide">Texto da chamada para pedidos<textarea data-content="contactDescription"></textarea></label>
+          <label>Texto do botão de contato<input data-content="contactButtonLabel"></label>
+          <label class="wide">Texto do rodapé<input data-content="footerNote"></label>
+          <button class="button primary wide" type="submit">Salvar textos</button>
+        </form>
+      </details>
+
+      <details class="admin-section" open>
+        <summary>Cardápio e preços</summary>
+        <form class="admin-form admin-grid" id="priceForm">
+          <label>Pastel normal (R$)<input id="normalPrice" type="number" min="0.01" step="0.01" required></label>
+          <label>Pastel Premium (R$)<input id="premiumPrice" type="number" min="0.01" step="0.01" required></label>
+          <div class="admin-actions wide"><button class="button primary" type="submit">Salvar preços base</button><button class="button secondary" id="addProduct" type="button">Adicionar item</button></div>
+        </form>
+        <div id="productEditor"></div>
+        <div class="admin-actions"><button class="button primary" id="saveProducts" type="button">Salvar cardápio</button></div>
+        <p>Pastéis usam o preço Normal ou Premium. Sucos e acompanhamentos podem ter preço próprio ou ficar como “Consulte”.</p>
+      </details>
+
+      <details class="admin-section">
+        <summary>Pedidos recebidos</summary>
+        <p>Esta lista mostra os pedidos enviados neste navegador. Pedidos de outros aparelhos chegam pelo WhatsApp quando o número estiver configurado.</p>
+        <div id="adminOrders"></div>
+      </details>
+
+      <details class="admin-section">
+        <summary>Cores do site</summary>
+        <form class="admin-form admin-grid" id="colorsForm">
+          <label class="color-field">Fundo creme<input type="color" data-color="cream"></label>
+          <label class="color-field">Papel claro<input type="color" data-color="paper"></label>
+          <label class="color-field">Rosa principal<input type="color" data-color="rose"></label>
+          <label class="color-field">Rosa escuro<input type="color" data-color="roseDeep"></label>
+          <label class="color-field">Rosa suave<input type="color" data-color="roseSoft"></label>
+          <label class="color-field">Marrom<input type="color" data-color="cocoa"></label>
+          <label class="color-field">Marrom claro<input type="color" data-color="cocoaLight"></label>
+          <label class="color-field">Dourado<input type="color" data-color="gold"></label>
+          <button class="button primary wide" type="submit">Salvar cores</button>
+        </form>
+      </details>
+
+      <details class="admin-section">
+        <summary>Contato e atendimento</summary>
+        <form class="admin-form admin-grid" id="contactsForm">
+          <label class="wide">WhatsApp com código do país<input id="contactWhatsapp" type="tel" placeholder="Ex.: 5511999999999"></label>
+          <label class="wide">Link para pedidos (opcional)<input id="contactOrderUrl" type="url" placeholder="https://seu-link-de-pedidos"></label>
+          <label class="wide">Link do Instagram<input id="contactInstagram" type="url" placeholder="https://instagram.com/sua-loja"></label>
+          <label class="wide">Endereço ou região<textarea id="contactAddress"></textarea></label>
+          <label class="wide">Horários de atendimento<textarea id="contactHours"></textarea></label>
+          <button class="button primary wide" type="submit">Salvar contato</button>
+        </form>
+      </details>
+
+      <details class="admin-section">
+        <summary>Senha e configurações</summary>
+        <form class="admin-form" id="changePasswordForm">
+          <label>Nova senha administrativa<input id="changePassword" type="password" autocomplete="new-password" minlength="8" required></label>
+          <button class="button secondary" type="submit">Trocar senha</button>
+        </form>
+        <div class="admin-actions"><button class="button secondary" id="resetSite" type="button">Restaurar conteúdo padrão</button></div>
+        <p>Alterações de conteúdo e senha ficam neste navegador. Esta proteção não substitui autenticação no servidor para um site publicado.</p>
+      </details>
+    </section>
+    <p class="admin-status" id="adminStatus" role="status" aria-live="polite"></p>
+  </dialog>
+
+  <button class="floating-cart" id="openCart" type="button">Meu pedido (0)</button>
+  <dialog class="admin-dialog" id="orderDialog" aria-labelledby="orderTitle">
+    <button class="admin-close" id="closeOrder" type="button" aria-label="Fechar">×</button>
+    <span class="eyebrow">Pastel Gourmet</span>
+    <h2 id="orderTitle">Seu pedido</h2>
+    <div id="cartItems"></div>
+    <div class="order-total"><span>Total</span><span id="cartTotal">R$ 0,00</span></div>
+    <p id="cartNotice">Adicione itens do cardápio. Para receber pedidos de clientes, configure o WhatsApp da loja no Admin.</p>
+    <form class="order-fields" id="checkoutForm">
+      <label>Seu nome<input id="customerName" autocomplete="name" required></label>
+      <label>Seu telefone (opcional)<input id="customerPhone" type="tel" autocomplete="tel"></label>
+      <label>Observação<textarea id="customerNote" rows="3" placeholder="Ex.: retirar às 15h"></textarea></label>
+      <button class="button primary" id="submitOrder" type="submit">Enviar pedido</button>
+    </form>
+    <p class="order-status" id="orderStatus" role="status" aria-live="polite"></p>
+  </dialog>
+
+  <script>
+    (() => {
+      const keys = { config: 'pastelGourmetSiteConfig', salt: 'pastelGourmetAdminSalt', hash: 'pastelGourmetAdminHash', oldPrices: 'pastelGourmetPrices', orders: 'pastelGourmetOrders' };
+      const defaults = {
+        logoData: '',
+        prices: { normal: 12, premium: 18 },
+        content: {
+          brandPrimary: 'PASTEL', brandSecondary: 'Gourmet', heroEyebrow: 'Doces variados · feitos com carinho',
+          heroTitle: 'Um momento doce,', heroHighlight: 'do seu jeito.',
+          heroDescription: 'Massa douradinha, recheio generoso e aquele toque especial que transforma uma pausa simples em uma lembrança deliciosa.',
+          heroTagline: 'Crocante por fora, irresistível por dentro.', heroPrimaryLabel: 'Conheça os sabores', heroSecondaryLabel: 'Nossa essência', navContactLabel: 'Fale com a gente',
+          stripOne: 'Feito com carinho', stripTwo: 'Recheio generoso', stripThree: 'Sabor que abraça', menuEyebrow: 'Uma pausa mais gostosa',
+          pastelHeading: 'Pastéis doces', juiceHeading: 'Sucos', sideHeading: 'Acompanhamento',
+          menuDescription: 'Escolha seu pastel doce, experimente um suco refrescante e complete com geleia de pimenta.',
+          storyEyebrow: 'Nossa essência', storyTitle: 'Pequenos detalhes. Grandes momentos.', storyButtonLabel: 'Vamos conversar',
+          storyTextOne: 'A Pastel Gourmet nasceu para deixar o dia mais leve e gostoso. Cada detalhe da nossa marca — do rosa delicado ao chocolate intenso — celebra o prazer de saborear algo feito com cuidado.',
+          storyTextTwo: 'Para um mimo no meio da tarde ou para adoçar uma comemoração, queremos fazer parte dos seus momentos felizes.',
+          contactEyebrow: 'Um convite especial', contactTitle: 'Seu próximo doce favorito está esperando.',
+          contactDescription: 'Quer saber sobre sabores, disponibilidade ou encomendas? Confira as sugestões e escolha sua combinação.',
+          contactButtonLabel: 'Pedir pelo WhatsApp', footerNote: 'Doces variados, momentos especiais.'
+        },
+        colors: { cream: '#fff3eb', paper: '#fffaf6', rose: '#e9788b', roseDeep: '#d95f77', roseSoft: '#f8d9d8', cocoa: '#49291d', cocoaLight: '#765544', gold: '#c68a36' },
+        contact: { whatsapp: '', orderUrl: '', instagram: '', address: '', hours: '' },
+        products: [
+          { id: 'p1', name: 'Romeu e Julieta', category: 'pastel', icon: '🍰', tier: 'normal' },
+          { id: 'p2', name: 'Doce de leite', category: 'pastel', icon: '🥛', tier: 'normal' },
+          { id: 'p3', name: 'Brigadeiro', category: 'pastel', icon: '🍫', tier: 'normal' },
+          { id: 'p4', name: 'Chocolate com avelã', category: 'pastel', icon: '🍫', tier: 'normal' },
+          { id: 'p5', name: 'Doce de leite com coco', category: 'pastel', icon: '🥥', tier: 'normal' },
+          { id: 'p6', name: 'Banana com canela Premium', category: 'pastel', icon: '🍌', tier: 'premium' },
+          { id: 'p7', name: 'Nutella', category: 'pastel', icon: '🍫', tier: 'premium' },
+          { id: 'p8', name: 'Nutella com morango', category: 'pastel', icon: '🍓', tier: 'premium' },
+          { id: 'p9', name: 'Prestígio', category: 'pastel', icon: '🥥', tier: 'premium' },
+          { id: 'p10', name: 'Ninho com Nutella', category: 'pastel', icon: '✨', tier: 'premium' },
+          { id: 'j1', name: 'Limão com gengibre', category: 'juice', icon: '🍋', price: '' },
+          { id: 'j2', name: 'Abacaxi com hortelã', category: 'juice', icon: '🍍', price: '' },
+          { id: 'j3', name: 'Maracujá com hortelã', category: 'juice', icon: '🥭', price: '' },
+          { id: 'a1', name: 'Geleia de pimenta', category: 'side', icon: '🌶️', price: '' }
+        ]
+      };
+      const dialog = document.getElementById('adminDialog');
+      const status = document.getElementById('adminStatus');
+      const views = ['setupView', 'loginView', 'panelView'].map(id => document.getElementById(id));
+      const money = value => new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(Number(value));
+      const copy = value => JSON.parse(JSON.stringify(value));
+      const safeGet = key => { try { return localStorage.getItem(key); } catch { return null; } };
+      const safeSet = (key, value) => { try { localStorage.setItem(key, value); return true; } catch { return false; } };
+      let config = loadConfig();
+      let basket = [];
+      let orders = loadOrders();
+
+      function loadConfig() {
+        let saved = null;
+        let legacy = {};
+        try { saved = JSON.parse(safeGet(keys.config) || 'null'); } catch { saved = null; }
+        try { legacy = JSON.parse(safeGet(keys.oldPrices) || '{}'); } catch { legacy = {}; }
+        return {
+          ...copy(defaults), ...(saved || {}),
+          prices: { ...defaults.prices, ...legacy, ...(saved?.prices || {}) },
+          content: { ...defaults.content, ...(saved?.content || {}) },
+          colors: { ...defaults.colors, ...(saved?.colors || {}) },
+          contact: { ...defaults.contact, ...(saved?.contact || {}) },
+          products: Array.isArray(saved?.products)
+            ? saved.products.map(item => ['p6','p7','p8','p9','p10'].includes(item.id) && item.category === 'pastel' ? { ...item, tier: 'premium' } : item)
+            : copy(defaults.products)
+        };
+      }
+      function loadOrders() { try { const list = JSON.parse(safeGet(keys.orders) || '[]'); return Array.isArray(list) ? list : []; } catch { return []; } }
+      function saveConfig(message = 'Alterações salvas neste navegador.') {
+        const ok = safeSet(keys.config, JSON.stringify(config));
+        if (ok) { safeSet(keys.oldPrices, JSON.stringify(config.prices)); applyConfig(); status.textContent = message; }
+        else status.textContent = 'O navegador não permitiu salvar. Abra o site em um navegador compatível.';
+        return ok;
+      }
+      function setText(id, value) { const element = document.getElementById(id); if (element) element.textContent = value || ''; }
+      function applyTheme() {
+        const root = document.documentElement;
+        Object.entries(config.colors).forEach(([key, value]) => root.style.setProperty('--' + key.replace(/[A-Z]/g, match => '-' + match.toLowerCase()), value));
+        document.querySelectorAll('[data-color]').forEach(input => input.value = config.colors[input.dataset.color] || defaults.colors[input.dataset.color]);
+      }
+      function makeMenuCard(product) {
+        const card = document.createElement('article'); card.className = 'card';
+        const icon = document.createElement('div'); icon.className = 'card-icon'; icon.setAttribute('aria-hidden', 'true'); icon.textContent = product.icon || '✨';
+        const heading = document.createElement('h3'); heading.textContent = product.name || 'Novo item';
+        card.append(icon, heading);
+        const tag = document.createElement('span'); tag.className = 'price-tag';
+        if (product.category === 'pastel') {
+          const premium = product.tier === 'premium'; tag.textContent = money(premium ? config.prices.premium : config.prices.normal) + (premium ? ' · Premium' : '');
+          if (premium) tag.classList.add('premium');
+        } else tag.textContent = Number(product.price) > 0 ? money(product.price) : 'Consulte';
+        card.append(tag);
+        const add = document.createElement('button'); add.type = 'button'; add.className = 'order-button'; add.dataset.addOrder = product.id; add.textContent = 'Adicionar ao pedido';
+        card.append(add); return card;
+      }
+      function renderMenu() {
+        basket = basket.filter(entry => config.products.some(item => item.id === entry.id));
+        document.getElementById('pastelGrid').replaceChildren(...config.products.filter(item => item.category === 'pastel').map(makeMenuCard));
+        document.getElementById('juiceGrid').replaceChildren(...config.products.filter(item => item.category === 'juice').map(makeMenuCard));
+        const side = document.getElementById('accompanimentList'); side.replaceChildren();
+        config.products.filter(item => item.category === 'side').forEach(item => {
+          const note = document.createElement('div'); note.className = 'pepper-note';
+          const icon = document.createElement('span'); icon.setAttribute('aria-hidden', 'true'); icon.textContent = item.icon || '✨';
+          const name = document.createElement('strong'); name.textContent = item.name;
+          note.append(icon, name);
+          if (Number(item.price) > 0) { const price = document.createElement('span'); price.textContent = ' · ' + money(item.price); note.append(price); }
+          const add = document.createElement('button'); add.type = 'button'; add.className = 'order-button'; add.dataset.addOrder = item.id; add.textContent = 'Adicionar'; note.append(add);
+          side.append(note);
+        });
+      }
+      function applyContact() {
+        const details = [];
+        const digits = (config.contact.whatsapp || '').replace(/\D/g, '');
+        if (digits) details.push('WhatsApp: +' + digits);
+        if (config.contact.address) details.push(config.contact.address);
+        if (config.contact.hours) details.push(config.contact.hours);
+        setText('contactDetails', details.join('\n'));
+        const button = document.getElementById('contactButton');
+        const orderUrl = (config.contact.orderUrl || '').trim();
+        if (digits) { button.href = 'https://wa.me/' + digits + '?text=' + encodeURIComponent('Olá! Gostaria de fazer um pedido.'); button.target = '_blank'; button.rel = 'noopener'; }
+        else if (/^https:\/\//i.test(orderUrl)) { button.href = orderUrl; button.target = '_blank'; button.rel = 'noopener'; }
+        else { button.href = '#sabores'; button.removeAttribute('target'); }
+        button.textContent = (digits || /^https:\/\//i.test(orderUrl) ? config.content.contactButtonLabel : 'Ver sabores') + ' ↗';
+        const instagram = document.getElementById('instagramLink');
+        const url = (config.contact.instagram || '').trim();
+        if (url && /^https:\/\//i.test(url)) { instagram.href = url; instagram.textContent = 'Instagram ↗'; instagram.hidden = false; }
+        else instagram.hidden = true;
+      }
+      function unitPrice(product) {
+        if (product.category === 'pastel') return Number(product.tier === 'premium' ? config.prices.premium : config.prices.normal);
+        return Number(product.price) > 0 ? Number(product.price) : null;
+      }
+      function getBasketItems() {
+        return basket.map(entry => ({ ...entry, product: config.products.find(item => item.id === entry.id) })).filter(entry => entry.product);
+      }
+      function updateCartButton() {
+        const count = basket.reduce((total, item) => total + item.quantity, 0);
+        document.getElementById('openCart').textContent = `Meu pedido (${count})`;
+      }
+      function renderCart() {
+        const root = document.getElementById('cartItems'); root.replaceChildren();
+        const items = getBasketItems();
+        if (!items.length) { const empty = document.createElement('p'); empty.textContent = 'Seu pedido está vazio. Escolha algo do cardápio para começar.'; root.append(empty); }
+        let total = 0; let hasUnpriced = false;
+        items.forEach(({ id, quantity, product }) => {
+          const price = unitPrice(product); if (price === null) hasUnpriced = true; else total += price * quantity;
+          const row = document.createElement('div'); row.className = 'cart-row';
+          const name = document.createElement('div'); const title = document.createElement('strong'); title.textContent = product.name;
+          const note = document.createElement('small'); note.textContent = price === null ? 'Preço a confirmar' : `${money(price)} cada · ${money(price * quantity)}`; name.append(title, note);
+          const controls = document.createElement('div'); controls.className = 'quantity-controls';
+          [['−','minus'],[String(quantity),'count'],['+','plus']].forEach(([text, action]) => { const button = document.createElement('button'); button.type = 'button'; button.textContent = text; if (action !== 'count') { button.dataset.cartAction = action; button.dataset.cartId = id; } else button.disabled = true; controls.append(button); });
+          const remove = document.createElement('button'); remove.type = 'button'; remove.className = 'admin-link'; remove.dataset.cartAction = 'remove'; remove.dataset.cartId = id; remove.textContent = '×'; remove.setAttribute('aria-label', 'Remover ' + product.name);
+          row.append(name, controls, remove); root.append(row);
+        });
+        document.getElementById('cartTotal').textContent = (hasUnpriced ? 'Parcial: ' : '') + money(total);
+        const phone = (config.contact.whatsapp || '').replace(/\D/g, '');
+        document.getElementById('cartNotice').textContent = phone
+          ? 'Ao enviar, o WhatsApp da loja abrirá com os detalhes do pedido. Confira e toque em enviar para concluir.'
+          : 'O WhatsApp da loja ainda não foi configurado. Este pedido poderá ser salvo apenas neste navegador.';
+        document.getElementById('submitOrder').disabled = !items.length;
+        updateCartButton();
+      }
+      function renderAdminOrders() {
+        orders = loadOrders(); const root = document.getElementById('adminOrders'); root.replaceChildren();
+        if (!orders.length) { const empty = document.createElement('p'); empty.textContent = 'Nenhum pedido salvo neste navegador ainda.'; root.append(empty); return; }
+        orders.forEach(order => {
+          const card = document.createElement('article'); card.className = 'admin-order';
+          const title = document.createElement('h3'); title.textContent = `${order.customer || 'Cliente'} · ${new Date(order.createdAt).toLocaleString('pt-BR')}`;
+          const contact = document.createElement('p'); contact.textContent = [order.phone, order.note].filter(Boolean).join(' · ');
+          const lines = document.createElement('p'); lines.textContent = (order.items || []).map(item => `${item.quantity}× ${item.name}${item.unitPrice ? ' — ' + money(item.unitPrice * item.quantity) : ' — a confirmar'}`).join('\n');
+          const total = document.createElement('p'); total.textContent = (order.hasUnpriced ? 'Total parcial: ' : 'Total: ') + money(order.total || 0);
+          const select = document.createElement('select'); select.dataset.orderStatus = order.id; ['Novo','Em preparo','Concluído','Cancelado'].forEach(value => { const option = document.createElement('option'); option.value = value; option.textContent = value; select.append(option); }); select.value = order.status || 'Novo';
+          card.append(title, contact, lines, total, select); root.append(card);
+        });
+      }
+      function applyConfig() {
+        const c = config.content;
+        const primary = c.brandPrimary || 'PASTEL'; const secondary = c.brandSecondary || '';
+        setText('brandPrimary', primary); setText('brandSecondary', secondary);
+        setText('footerBrand', [primary, secondary].filter(Boolean).join(' ').toUpperCase());
+        setText('heroEyebrow', c.heroEyebrow); setText('heroTitle', c.heroTitle); setText('heroHighlight', c.heroHighlight);
+        setText('heroDescription', c.heroDescription); setText('heroTagline', c.heroTagline);
+        setText('heroPrimaryLabel', c.heroPrimaryLabel); setText('heroSecondaryLabel', c.heroSecondaryLabel); setText('navContactLabel', c.navContactLabel);
+        setText('stripOne', c.stripOne); setText('stripTwo', c.stripTwo); setText('stripThree', c.stripThree); setText('menuEyebrow', c.menuEyebrow);
+        setText('menuDescription', c.menuDescription); setText('storyTitle', c.storyTitle);
+        setText('storyEyebrow', c.storyEyebrow); setText('storyButtonLabel', c.storyButtonLabel);
+        setText('storyTextOne', c.storyTextOne); setText('storyTextTwo', c.storyTextTwo);
+        setText('contactEyebrow', c.contactEyebrow); setText('contactTitle', c.contactTitle); setText('contactDescription', c.contactDescription);
+        setText('footerNote', c.footerNote);
+        setText('pastelGridHeading', c.pastelHeading); setText('juiceGridHeading', c.juiceHeading); setText('sideGridHeading', c.sideHeading);
+        const logo = document.getElementById('heroLogo'); logo.src = config.logoData || 'assets/pastel-gourmet-logo.jpeg'; logo.alt = 'Logo de ' + [primary, secondary].filter(Boolean).join(' ');
+        document.title = primary + (secondary ? ' ' + secondary : '') + ' — Doces variados';
+        applyTheme(); renderMenu(); applyContact();
+      }
+      function showView(view) { views.forEach(item => item.hidden = item !== view); status.textContent = ''; }
+      function bytesToBase64(bytes) { return btoa(String.fromCharCode(...new Uint8Array(bytes))); }
+      async function passwordHash(password, salt) {
+        const material = await crypto.subtle.importKey('raw', new TextEncoder().encode(password), 'PBKDF2', false, ['deriveBits']);
+        const bits = await crypto.subtle.deriveBits({ name: 'PBKDF2', salt, iterations: 150000, hash: 'SHA-256' }, material, 256);
+        return bytesToBase64(bits);
+      }
+      async function savePassword(password) {
+        const salt = crypto.getRandomValues(new Uint8Array(16));
+        if (!safeSet(keys.salt, bytesToBase64(salt)) || !safeSet(keys.hash, await passwordHash(password, salt))) throw new Error('storage');
+      }
+      function fillEditors() {
+        document.querySelectorAll('[data-content]').forEach(input => input.value = config.content[input.dataset.content] || '');
+        document.querySelectorAll('[data-color]').forEach(input => input.value = config.colors[input.dataset.color] || '#ffffff');
+        document.getElementById('normalPrice').value = config.prices.normal;
+        document.getElementById('premiumPrice').value = config.prices.premium;
+        document.getElementById('contactWhatsapp').value = config.contact.whatsapp || '';
+        document.getElementById('contactOrderUrl').value = config.contact.orderUrl || '';
+        document.getElementById('contactInstagram').value = config.contact.instagram || '';
+        document.getElementById('contactAddress').value = config.contact.address || '';
+        document.getElementById('contactHours').value = config.contact.hours || '';
+        renderProductEditor();
+      }
+      function field(labelText, input) { const label = document.createElement('label'); label.textContent = labelText; label.append(input); return label; }
+      function renderProductEditor() {
+        const root = document.getElementById('productEditor'); root.replaceChildren();
+        config.products.forEach((item, index) => {
+          const row = document.createElement('div'); row.className = 'admin-product-row'; row.dataset.index = index;
+          const name = document.createElement('input'); name.value = item.name || ''; name.dataset.field = 'name'; name.setAttribute('aria-label', 'Nome do item');
+          const category = document.createElement('select'); category.dataset.field = 'category'; category.setAttribute('aria-label', 'Categoria');
+          [['pastel','Pastel'],['juice','Suco'],['side','Acompanhamento']].forEach(([value,label]) => { const option = document.createElement('option'); option.value = value; option.textContent = label; category.append(option); }); category.value = item.category;
+          const icon = document.createElement('input'); icon.value = item.icon || '✨'; icon.maxLength = 4; icon.dataset.field = 'icon'; icon.setAttribute('aria-label', 'Ícone');
+          const tier = document.createElement('select'); tier.dataset.field = 'tier'; tier.setAttribute('aria-label', 'Preço do pastel');
+          [['normal','Normal'],['premium','Premium']].forEach(([value,label]) => { const option = document.createElement('option'); option.value = value; option.textContent = label; tier.append(option); }); tier.value = item.tier === 'premium' ? 'premium' : 'normal';
+          const price = document.createElement('input'); price.type = 'number'; price.min = '0'; price.step = '0.01'; price.placeholder = 'Consulte'; price.value = item.price || ''; price.dataset.field = 'price'; price.setAttribute('aria-label', 'Preço próprio');
+          const tierLabel = field('Preço base', tier); const priceLabel = field('Preço suco/acomp.', price);
+          if (item.category === 'pastel') priceLabel.hidden = true; else tierLabel.hidden = true;
+          row.append(field('Nome', name), field('Categoria', category), field('Ícone', icon), tierLabel, priceLabel);
+          const remove = document.createElement('button'); remove.type = 'button'; remove.textContent = 'Remover'; remove.dataset.remove = index; remove.setAttribute('aria-label', 'Remover ' + (item.name || 'item')); row.append(remove);
+          root.append(row);
+        });
+      }
+      function readProductEditor() {
+        return Array.from(document.querySelectorAll('.admin-product-row')).map((row, index) => {
+          const item = config.products[index]; const value = key => row.querySelector(`[data-field="${key}"]`).value.trim();
+          const category = value('category');
+          return { id: item.id || 'item-' + Date.now() + '-' + index, name: value('name'), category, icon: value('icon') || '✨', ...(category === 'pastel' ? { tier: value('tier') } : { price: value('price') }) };
+        }).filter(item => item.name);
+      }
+      function openPanel() { fillEditors(); renderAdminOrders(); showView(document.getElementById('panelView')); }
+
+      applyConfig();
+      updateCartButton();
+      document.getElementById('openAdmin').addEventListener('click', () => {
+        const hasPassword = safeGet(keys.hash) && safeGet(keys.salt);
+        showView(document.getElementById(hasPassword ? 'loginView' : 'setupView')); dialog.showModal();
+      });
+      document.getElementById('closeAdmin').addEventListener('click', () => dialog.close());
+      document.getElementById('openCart').addEventListener('click', () => { renderCart(); document.getElementById('orderDialog').showModal(); });
+      document.getElementById('closeOrder').addEventListener('click', () => document.getElementById('orderDialog').close());
+      document.addEventListener('click', event => {
+        const add = event.target.closest('[data-add-order]');
+        if (!add) return;
+        const id = add.dataset.addOrder; const existing = basket.find(item => item.id === id);
+        if (existing) existing.quantity += 1; else basket.push({ id, quantity: 1 });
+        updateCartButton(); add.textContent = 'Adicionado ✓'; setTimeout(() => { if (add.isConnected) add.textContent = 'Adicionar ao pedido'; }, 1200);
+      });
+      document.getElementById('cartItems').addEventListener('click', event => {
+        const control = event.target.closest('[data-cart-action]'); if (!control) return;
+        const item = basket.find(entry => entry.id === control.dataset.cartId); if (!item) return;
+        if (control.dataset.cartAction === 'plus') item.quantity += 1;
+        if (control.dataset.cartAction === 'minus') item.quantity -= 1;
+        if (control.dataset.cartAction === 'remove' || item.quantity <= 0) basket = basket.filter(entry => entry.id !== item.id);
+        renderCart();
+      });
+      document.getElementById('checkoutForm').addEventListener('submit', event => {
+        event.preventDefault();
+        const items = getBasketItems(); if (!items.length) { document.getElementById('orderStatus').textContent = 'Adicione pelo menos um item.'; return; }
+        const orderItems = items.map(({ quantity, product }) => ({ name: product.name, quantity, unitPrice: unitPrice(product) }));
+        const hasUnpriced = orderItems.some(item => item.unitPrice === null);
+        const total = orderItems.reduce((sum, item) => sum + (item.unitPrice || 0) * item.quantity, 0);
+        const order = { id: 'order-' + Date.now(), createdAt: new Date().toISOString(), customer: document.getElementById('customerName').value.trim(), phone: document.getElementById('customerPhone').value.trim(), note: document.getElementById('customerNote').value.trim(), items: orderItems, total, hasUnpriced, status: 'Novo' };
+        orders = [order, ...loadOrders()];
+        if (!safeSet(keys.orders, JSON.stringify(orders))) { document.getElementById('orderStatus').textContent = 'O navegador não conseguiu salvar o pedido. Tente novamente.'; return; }
+        renderAdminOrders();
+        const storePhone = (config.contact.whatsapp || '').replace(/\D/g, '');
+        if (storePhone) {
+          const lines = ['Pedido Pastel Gourmet', 'Cliente: ' + order.customer, order.phone ? 'Telefone: ' + order.phone : '', ...orderItems.map(item => `${item.quantity}× ${item.name}${item.unitPrice === null ? ' — preço a confirmar' : ' — ' + money(item.unitPrice * item.quantity)}`), (hasUnpriced ? 'Total parcial: ' : 'Total: ') + money(total), order.note ? 'Observação: ' + order.note : ''].filter(Boolean);
+          const whatsappTab = window.open('https://wa.me/' + storePhone + '?text=' + encodeURIComponent(lines.join('\n')), '_blank');
+          if (whatsappTab) whatsappTab.opener = null;
+          document.getElementById('orderStatus').textContent = whatsappTab ? 'Pedido salvo. O WhatsApp abriu com os detalhes; confirme o envio por lá.' : 'Pedido salvo. Se o WhatsApp não abriu, permita a nova aba e tente novamente.';
+        } else document.getElementById('orderStatus').textContent = 'Pedido salvo neste navegador. Configure o WhatsApp da loja no Admin para receber pedidos de clientes.';
+        basket = []; renderCart(); event.target.reset();
+      });
+      document.getElementById('adminOrders').addEventListener('change', event => {
+        const order = orders.find(item => item.id === event.target.dataset.orderStatus); if (!order) return;
+        order.status = event.target.value;
+        if (safeSet(keys.orders, JSON.stringify(orders))) status.textContent = 'Status do pedido atualizado.';
+        else status.textContent = 'Não foi possível salvar o status.';
+      });
+      document.getElementById('setupForm').addEventListener('submit', async event => {
+        event.preventDefault(); const password = document.getElementById('setupPassword').value;
+        if (password !== document.getElementById('setupConfirm').value) { status.textContent = 'As senhas não coincidem.'; return; }
+        try { await savePassword(password); openPanel(); } catch { status.textContent = 'Não foi possível salvar a senha neste navegador.'; }
+      });
+      document.getElementById('loginForm').addEventListener('submit', async event => {
+        event.preventDefault();
+        try {
+          const salt = Uint8Array.from(atob(safeGet(keys.salt)), char => char.charCodeAt(0));
+          const attempt = await passwordHash(document.getElementById('loginPassword').value, salt);
+          if (attempt === safeGet(keys.hash)) { document.getElementById('loginPassword').value = ''; openPanel(); }
+          else status.textContent = 'Senha incorreta. Tente novamente.';
+        } catch { status.textContent = 'Não foi possível verificar a senha neste navegador.'; }
+      });
+      document.getElementById('contentForm').addEventListener('submit', event => {
+        event.preventDefault(); document.querySelectorAll('[data-content]').forEach(input => config.content[input.dataset.content] = input.value.trim()); saveConfig('Textos salvos.');
+      });
+      document.getElementById('logoUpload').addEventListener('change', event => {
+        const file = event.target.files[0]; if (!file) return;
+        if (!file.type.startsWith('image/') || file.size > 2 * 1024 * 1024) { status.textContent = 'Escolha uma imagem com até 2 MB.'; event.target.value = ''; return; }
+        const reader = new FileReader();
+        reader.onload = () => { config.logoData = String(reader.result); saveConfig('Logo atualizado neste navegador.'); };
+        reader.onerror = () => { status.textContent = 'Não foi possível carregar essa imagem.'; };
+        reader.readAsDataURL(file);
+      });
+      document.getElementById('priceForm').addEventListener('submit', event => {
+        event.preventDefault(); const normal = Number(document.getElementById('normalPrice').value); const premium = Number(document.getElementById('premiumPrice').value);
+        if (!(normal > 0) || !(premium > 0)) { status.textContent = 'Informe preços maiores que zero.'; return; }
+        config.prices = { normal, premium }; saveConfig('Preços base salvos.');
+      });
+      document.getElementById('addProduct').addEventListener('click', () => {
+        config.products = readProductEditor(); config.products.push({ id: 'new-' + Date.now(), name: 'Novo item', category: 'pastel', icon: '✨', tier: 'normal' }); renderProductEditor();
+      });
+      document.getElementById('productEditor').addEventListener('click', event => {
+        const index = Number(event.target.dataset.remove); if (!Number.isNaN(index) && event.target.hasAttribute('data-remove')) { config.products = readProductEditor(); config.products.splice(index, 1); renderProductEditor(); }
+      });
+      document.getElementById('productEditor').addEventListener('change', event => {
+        if (event.target.dataset.field === 'category') {
+          const row = event.target.closest('.admin-product-row'); row.querySelector('[data-field="tier"]').parentElement.hidden = event.target.value !== 'pastel';
+          row.querySelector('[data-field="price"]').parentElement.hidden = event.target.value === 'pastel';
+        }
+      });
+      document.getElementById('saveProducts').addEventListener('click', () => { config.products = readProductEditor(); saveConfig('Cardápio salvo.'); });
+      document.getElementById('colorsForm').addEventListener('submit', event => {
+        event.preventDefault(); document.querySelectorAll('[data-color]').forEach(input => config.colors[input.dataset.color] = input.value); saveConfig('Cores salvas.');
+      });
+      document.getElementById('contactsForm').addEventListener('submit', event => {
+        event.preventDefault(); config.contact = { whatsapp: document.getElementById('contactWhatsapp').value.trim(), orderUrl: document.getElementById('contactOrderUrl').value.trim(), instagram: document.getElementById('contactInstagram').value.trim(), address: document.getElementById('contactAddress').value.trim(), hours: document.getElementById('contactHours').value.trim() }; saveConfig('Contato salvo.');
+      });
+      document.getElementById('changePasswordForm').addEventListener('submit', async event => {
+        event.preventDefault(); try { await savePassword(document.getElementById('changePassword').value); event.target.reset(); status.textContent = 'Senha alterada.'; } catch { status.textContent = 'Não foi possível alterar a senha.'; }
+      });
+      document.getElementById('resetSite').addEventListener('click', () => {
+        if (!confirm('Restaurar textos, cardápio, preços, cores e contatos para os valores padrão? A senha administrativa será mantida.')) return;
+        config = copy(defaults); saveConfig('Configurações padrão restauradas.'); fillEditors();
+      });
+    })();
+  </script>
+</body>
+</html>
+
